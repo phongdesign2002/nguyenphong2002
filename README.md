@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creative Portfolio | Catalogue • Poster • Video</title>
+
+<title>Creative Portfolio</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
 --bg:#070b14;
 --card:#0f1629;
@@ -34,87 +37,108 @@ padding:25px 8%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-z-index:1000;
 border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-.logo{font-weight:700;letter-spacing:2px;font-size:20px;color:var(--accent)}
+.logo{
+font-weight:700;
+letter-spacing:2px;
+font-size:20px;
+color:var(--accent)
+}
 
-nav a{margin-left:30px;text-decoration:none;color:#cfd6ff;font-size:14px;transition:.3s}
+nav a{
+margin-left:30px;
+text-decoration:none;
+color:#cfd6ff;
+font-size:14px;
+}
+
 nav a:hover{color:var(--accent)}
 
-.hero{height:85vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 10%}
+section{padding:90px 10%}
+
+.section-title{
+font-size:34px;
+margin-bottom:40px;
+}
+
+.hero{
+text-align:center;
+}
 
 .hero h1{
-font-size:60px;margin-bottom:20px;
+font-size:58px;
+margin-bottom:15px;
 background:linear-gradient(90deg,#4cc9f0,#7b9cff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-.hero p{color:var(--sub);font-size:18px}
-
-.hero button{
-margin-top:35px;padding:14px 32px;border:none;
-background:linear-gradient(90deg,#4cc9f0,#4361ee);
-color:white;border-radius:30px;font-size:15px;cursor:pointer;transition:.3s
+.hero p{
+color:var(--sub);
+margin-bottom:30px
 }
 
-.hero button:hover{transform:translateY(-3px)}
+.hero-image{
+max-width:1000px;
+margin:auto;
+border-radius:14px;
+overflow:hidden;
+position:relative;
+}
 
-section{padding:90px 10%}
+.hero-image img{
+width:100%;
+aspect-ratio:16/9;
+object-fit:cover;
+}
 
-.section-title{font-size:34px;margin-bottom:50px;font-weight:600}
-
-.about{max-width:800px;color:var(--sub);font-size:17px}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px
+}
 
 .card{
 background:var(--card);
 border-radius:14px;
 overflow:hidden;
-transition:.35s;
-position:relative;
 border:1px solid rgba(255,255,255,.05);
 display:flex;
 flex-direction:column;
 }
 
-.card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.5)}
+.card img{
+width:100%;
+cursor:pointer
+}
 
-.card img{width:100%;display:block}
-.card video{width:100%}
+.card video{
+width:100%
+}
 
-.card .info{padding:18px}
-.card .title{font-size:16px;margin-bottom:6px}
-.card .tag{font-size:12px;color:var(--accent)}
-
-/* DELETE FOOTER */
+.card .info{
+padding:18px
+}
 
 .card-footer{
 display:flex;
 justify-content:flex-end;
-align-items:center;
 padding:10px 15px;
 border-top:1px solid rgba(255,255,255,.05);
 }
 
-.delete-btn{
+.action-btn{
 background:none;
 border:none;
-color:var(--danger);
-font-size:18px;
 cursor:pointer;
-transition:.2s;
-display:flex;
-align-items:center;
-gap:6px;
+font-size:18px;
+margin-left:10px
 }
 
-.delete-btn:hover{
-transform:scale(1.2);
-}
+.delete-btn{color:var(--danger)}
+.edit-btn{color:var(--accent)}
 
 .upload-panel{
 margin-bottom:40px;
@@ -124,26 +148,67 @@ border-radius:10px;
 border:1px solid rgba(255,255,255,.05);
 }
 
-.upload-panel h3{margin-bottom:10px;font-size:18px}
+.upload-panel input{
+margin-top:10px
+}
 
 .upload-panel button{
-padding:8px 16px;border:none;background:var(--accent);color:#000;border-radius:6px;cursor:pointer
+margin-top:10px;
+padding:8px 16px;
+border:none;
+background:var(--accent);
+color:#000;
+border-radius:6px;
+cursor:pointer
+}
+
+.experience-list{
+max-width:800px
+}
+
+.exp-item{
+background:var(--card);
+padding:25px;
+border-radius:10px;
+margin-bottom:20px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.exp-role{font-weight:600;font-size:18px}
+.exp-company{color:var(--accent)}
+.exp-time{color:var(--sub);margin-bottom:10px}
+
+.exp-actions{
+margin-top:10px
 }
 
 .modal{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,.85);
-display:none;align-items:center;justify-content:center;
-padding:40px;z-index:2000
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.9);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:2000
 }
 
-.modal img{max-width:90%;max-height:90%;border-radius:10px}
+.modal img{
+max-width:90%;
+max-height:90%
+}
+
 .modal.show{display:flex}
 
-.contact-box{background:var(--card);padding:40px;border-radius:14px;max-width:600px}
-.contact-box p{color:var(--sub)}
-
-footer{margin-top:100px;padding:40px;text-align:center;color:#7d88b8;border-top:1px solid rgba(255,255,255,.05)}
+footer{
+margin-top:100px;
+padding:40px;
+text-align:center;
+color:#7d88b8;
+border-top:1px solid rgba(255,255,255,.05)
+}
 
 </style>
 </head>
@@ -151,76 +216,138 @@ footer{margin-top:100px;padding:40px;text-align:center;color:#7d88b8;border-top:
 <body>
 
 <header>
+
 <div class="logo">PORTFOLIO</div>
+
 <nav>
-<a href="#about">About</a>
+<a href="#experience">Experience</a>
 <a href="#catalogue">Catalogue</a>
 <a href="#poster">Poster</a>
+<a href="#logo">Logo</a>
 <a href="#video">Video</a>
-<a href="#contact">Contact</a>
 </nav>
+
 </header>
 
+
 <section class="hero">
-<div>
-<h1>Creative Design Works</h1>
+
+<h1>Creative Design Portfolio</h1>
 <p>Catalogue • Poster • Advertising • Video Production</p>
-<button onclick="scrollToSection()">View Projects</button>
+
+<div class="upload-panel">
+
+<h3>Thêm ảnh tiêu đề (16:9)</h3>
+
+<input type="file" id="heroUpload" accept="image/*">
+
+<br>
+
+<button onclick="addHeroImage()">Add Cover Image</button>
+
 </div>
+
+<div class="hero-image" id="heroImageContainer"></div>
+
 </section>
 
-<section id="about">
-<h2 class="section-title">About</h2>
-<p class="about">Tôi chuyên thiết kế catalogue, poster quảng cáo và sản xuất video truyền thông.</p>
+
+<section id="experience">
+
+<h2 class="section-title">Kinh nghiệm làm việc</h2>
+
+<div class="upload-panel">
+
+<h3>Thêm kinh nghiệm</h3>
+
+<input type="text" id="expRole" placeholder="Vị trí">
+
+<br>
+
+<input type="text" id="expCompany" placeholder="Công ty">
+
+<br>
+
+<input type="text" id="expTime" placeholder="Thời gian">
+
+<br>
+
+<button onclick="addExperience()">Add Experience</button>
+
+</div>
+
+<div class="experience-list" id="experienceList"></div>
+
 </section>
+
 
 <section id="catalogue">
+
 <h2 class="section-title">Catalogue Design</h2>
 
 <div class="upload-panel">
-<h3>Thêm hình catalogue</h3>
+
 <input type="file" id="catalogueUpload" accept="image/*">
+
 <button onclick="addCatalogue()">Add Image</button>
+
 </div>
 
 <div class="grid" id="catalogueGrid"></div>
 
 </section>
 
+
 <section id="poster">
+
 <h2 class="section-title">Poster Design</h2>
 
 <div class="upload-panel">
-<h3>Thêm poster</h3>
+
 <input type="file" id="posterUpload" accept="image/*">
+
 <button onclick="addPoster()">Add Poster</button>
+
 </div>
 
 <div class="grid" id="posterGrid"></div>
 
 </section>
 
+
+<section id="logo">
+
+<h2 class="section-title">Logo Design</h2>
+
+<div class="upload-panel">
+
+<input type="file" id="logoUpload" accept="image/*">
+
+<button onclick="addLogo()">Add Logo</button>
+
+</div>
+
+<div class="grid" id="logoGrid"></div>
+
+</section>
+
+
 <section id="video">
+
 <h2 class="section-title">Video Projects</h2>
 
 <div class="upload-panel">
-<h3>Thêm video</h3>
+
 <input type="file" id="videoUpload" accept="video/*">
+
 <button onclick="addVideo()">Add Video</button>
+
 </div>
 
 <div class="grid" id="videoGrid"></div>
 
 </section>
 
-<section id="contact">
-<h2 class="section-title">Contact</h2>
-<div class="contact-box">
-<p>Email: yourmail@email.com</p>
-<p>Behance: behance.net/yourname</p>
-<p>Instagram: instagram.com/yourname</p>
-</div>
-</section>
 
 <div class="modal" id="modal" onclick="closeModal()">
 <img id="modalImg">
@@ -230,53 +357,130 @@ footer{margin-top:100px;padding:40px;text-align:center;color:#7d88b8;border-top:
 © 2026 Creative Portfolio
 </footer>
 
+
 <script>
 
-function scrollToSection(){
-document.querySelector('#catalogue').scrollIntoView({behavior:'smooth'})
-}
-
 function removeCard(btn){
-let card = btn.closest('.card')
-card.remove()
+btn.closest('.card').remove()
 }
 
 function createImageCard(src){
+
 let card=document.createElement('div')
+
 card.className='card'
 
 card.innerHTML=`
+
 <img src="${src}" onclick="openModal('${src}')">
+
 <div class="info">
 <div class="title">Design Work</div>
 <div class="tag">Image</div>
 </div>
+
 <div class="card-footer">
-<button class="delete-btn" onclick="removeCard(this)">🗑</button>
+<button class="delete-btn action-btn" onclick="removeCard(this)">🗑</button>
 </div>
 `
 
 return card
+
 }
 
 function createVideoCard(src){
+
 let card=document.createElement('div')
+
 card.className='card'
 
 card.innerHTML=`
+
 <video controls>
-<source src="${src}" type="video/mp4">
+<source src="${src}">
 </video>
+
 <div class="info">
 <div class="title">Video Project</div>
 <div class="tag">Video</div>
 </div>
+
 <div class="card-footer">
-<button class="delete-btn" onclick="removeCard(this)">🗑</button>
+<button class="delete-btn action-btn" onclick="removeCard(this)">🗑</button>
 </div>
 `
 
 return card
+
+}
+
+function addHeroImage(){
+
+let file=document.getElementById('heroUpload').files[0]
+if(!file) return
+
+let url=URL.createObjectURL(file)
+
+document.getElementById('heroImageContainer').innerHTML=`
+<img src="${url}">
+<button class="delete-btn action-btn"
+style="position:absolute;top:10px;right:10px"
+onclick="removeHero()">🗑</button>`
+}
+
+function removeHero(){
+document.getElementById('heroImageContainer').innerHTML=''
+}
+
+function addExperience(){
+
+let role=document.getElementById('expRole').value
+let company=document.getElementById('expCompany').value
+let time=document.getElementById('expTime').value
+
+let item=document.createElement('div')
+
+item.className='exp-item'
+
+item.innerHTML=`
+
+<div class="exp-role">${role}</div>
+<div class="exp-company">${company}</div>
+<div class="exp-time">${time}</div>
+
+<div class="exp-actions">
+
+<button class="edit-btn action-btn" onclick="editExperience(this)">✏</button>
+
+<button class="delete-btn action-btn" onclick="deleteExperience(this)">🗑</button>
+
+</div>
+`
+
+document.getElementById('experienceList').appendChild(item)
+
+}
+
+function deleteExperience(btn){
+btn.closest('.exp-item').remove()
+}
+
+function editExperience(btn){
+
+let item=btn.closest('.exp-item')
+
+let role=item.querySelector('.exp-role').innerText
+let company=item.querySelector('.exp-company').innerText
+let time=item.querySelector('.exp-time').innerText
+
+let newRole=prompt("Edit Role",role)
+let newCompany=prompt("Edit Company",company)
+let newTime=prompt("Edit Time",time)
+
+if(newRole) item.querySelector('.exp-role').innerText=newRole
+if(newCompany) item.querySelector('.exp-company').innerText=newCompany
+if(newTime) item.querySelector('.exp-time').innerText=newTime
+
 }
 
 function addCatalogue(){
@@ -293,6 +497,14 @@ if(!file) return
 let url=URL.createObjectURL(file)
 let card=createImageCard(url)
 document.getElementById('posterGrid').appendChild(card)
+}
+
+function addLogo(){
+let file=document.getElementById('logoUpload').files[0]
+if(!file) return
+let url=URL.createObjectURL(file)
+let card=createImageCard(url)
+document.getElementById('logoGrid').appendChild(card)
 }
 
 function addVideo(){
