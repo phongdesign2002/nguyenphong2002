@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creative Portfolio | Persistence & Search</title>
+<title>Ultimate Creative Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-/* --- CORE STYLE (Giữ nguyên từ code gốc) --- */
+/* --- CORE STYLE --- */
 *{margin:0;padding:0;box-sizing:border-box}
 body{
     font-family:'Inter', sans-serif;
@@ -16,75 +16,75 @@ body{
     overflow-x:hidden;
 }
 
-/* --- CHẾ ĐỘ VIEW-ONLY --- */
+/* --- VIEW-ONLY MODE --- */
 body.view-only .admin-btn, 
 body.view-only .delete-file, 
-body.view-only .delete-selected,
 body.view-only input[type="file"],
 body.view-only .project-folder button[onclick^="deleteProject"],
-body.view-only .hero button,
-body.view-only .search-box + div { 
+body.view-only .hero button { 
     display: none !important; 
 }
 
+/* --- UI COMPONENTS --- */
 header{ display:flex; align-items:center; justify-content:space-between; padding:20px 8%; border-bottom:1px solid rgba(255,255,255,.08); background: rgba(5, 10, 24, 0.9); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;}
-.header-left{display:flex;align-items:center;gap:15px;}
 .logo{font-weight:700;font-size:22px;color:#4cc9f0;cursor:pointer;letter-spacing: 1px;}
 .avatar{width:45px;height:45px;border-radius:50%;overflow:hidden;border:2px solid rgba(76, 201, 240, 0.5);cursor:pointer;position:relative;background:#222;}
 .avatar img{width:100%;height:100%;object-fit:cover;}
-.avatar input{display:none}
-.avatar button{position:absolute;bottom:-5px;right:-5px;background:#ff4d6d;border:none;width:20px;height:20px;border-radius:50%;color:white;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;}
+.avatar button{position:absolute;bottom:-5px;right:-5px;background:#ff4d6d;border:none;width:20px;height:20px;border-radius:50%;color:white;font-size:10px;display:flex;align-items:center;justify-content:center;}
 
 .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 5%; }
 .page { display: none; opacity: 0; padding: 40px 0 80px 0; }
 .page.active { display: block; animation: fadeInPage 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
 @keyframes fadeInPage { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-.hero{text-align:center; padding: 40px 0 60px 0;}
 .hero-media{max-width:850px; margin:30px auto; position:relative; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.6);}
 .hero-media img, .hero-media video{width:100%; display: block; aspect-ratio:16/9; object-fit:cover;}
 .hero-media button{position:absolute;top:15px;right:15px;background:#ff4d6d;border:none;width:32px;height:32px;border-radius:50%;color:white;cursor:pointer;z-index:10;}
 
 .category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px; margin-bottom: 60px;}
 .category{background:rgba(17, 24, 51, 0.6); padding:60px 30px; border-radius:18px; text-align:center; cursor:pointer; transition:all 0.4s ease; border: 1px solid rgba(255,255,255,0.05);}
-.category:hover{transform:translateY(-12px); border-color: #4cc9f0;}
+.category:hover{transform:translateY(-12px); border-color: #4cc9f0; background: rgba(22, 31, 66, 0.8);}
 .category span{font-size:55px; display:block; margin-bottom:15px;}
 
 .project-folder{ background:rgba(17, 24, 51, 0.8); padding:35px; border-radius:20px; margin-top:40px; border: 1px solid rgba(255,255,255,0.03);}
 .project-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;}
-.project-media{ display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:18px; margin-top:25px;}
-.media-item{position:relative; border-radius: 12px; overflow: hidden;}
-.media-item img, .media-item video{width:100%; cursor:pointer; aspect-ratio:1/1; object-fit:cover; display: block;}
+.project-media{ display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:18px;}
+.media-item{position:relative; border-radius: 12px; overflow: hidden; background: #000;}
+.media-item img, .media-item video{width:100%; cursor:pointer; aspect-ratio:1/1; object-fit:cover; display: block; transition: 0.3s;}
 
 .btn{background:#4cc9f0; border:none; padding:12px 24px; border-radius:10px; cursor:pointer; font-weight:700; color:#050a18; transition: .3s;}
 input[type="text"] { background: #1e264d; border: 1px solid #333; color: white; padding: 12px; border-radius: 10px; outline: none;}
 
-/* --- STYLE MỚI CHO CÁC DẤU CHẤM BÍ MẬT --- */
-.secret-controls {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+/* --- ADVANCED VIEWER (Zoom & Pan) --- */
+.viewer{ 
+    position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.98); 
+    display:none; align-items:center; justify-content:center; z-index:9999; overflow: hidden;
 }
-.dot-trigger {
-    color: rgba(76, 201, 240, 0.2); /* Mờ nhạt để người xem không để ý */
-    cursor: pointer;
-    font-size: 24px;
-    font-weight: bold;
-    transition: 0.3s;
-    user-select: none;
-}
-.dot-trigger:hover {
-    color: #4cc9f0; /* Hiện rõ khi chủ nhân di chuột vào */
-}
-
-/* --- VIEWER --- */
-.viewer{ position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.98); display:none; align-items:center; justify-content:center; z-index:9999; }
 .viewer.active{ display:flex; }
-.viewer-content-wrapper { position: relative; width: 90%; height: 90%; display: flex; align-items: center; justify-content: center; }
-.viewer img, .viewer video{max-width:100%; max-height:100%;}
-.viewer-arrow{position:absolute; top:50%; transform:translateY(-50%); font-size:45px; background:none; border:none; color:white; cursor:pointer;}
-.viewer-back{position:absolute; top:-40px; left:0; color:white; background:none; border:none; cursor:pointer; font-size: 20px;}
+#viewerContainer {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: grab;
+}
+#viewerContainer:active { cursor: grabbing; }
+#viewerContent {
+    transition: transform 0.1s ease-out;
+    transform-origin: center;
+    display: flex; align-items: center; justify-content: center;
+}
+#viewerContent img, #viewerContent video {
+    max-width: 90vw; max-height: 90vh;
+    box-shadow: 0 0 50px rgba(0,0,0,1);
+    pointer-events: none; /* Tránh tương tác trực tiếp để ưu tiên container kéo thả */
+}
+.viewer-arrow{position:absolute; top:50%; transform:translateY(-50%); font-size:40px; background:rgba(255,255,255,0.1); border:none; color:white; cursor:pointer; width: 60px; height: 60px; border-radius: 50%; z-index: 10001; transition: .3s;}
+.viewer-arrow:hover { background: #4cc9f0; color: #000; }
+.viewer-back{position:absolute; top:30px; left:30px; color:white; background:rgba(255,255,255,0.1); border:none; cursor:pointer; padding: 10px 20px; border-radius: 30px; z-index: 10001;}
+
+/* --- SECRET DOTS --- */
+.secret-controls { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
+.dot-trigger { color: rgba(76, 201, 240, 0.1); cursor: pointer; font-size: 24px; font-weight: bold; transition: 0.3s; user-select: none; }
+.dot-trigger:hover { color: #4cc9f0; }
 
 footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.05); text-align:center;}
 </style>
@@ -95,8 +95,8 @@ footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.
 <header>
     <div class="header-left">
         <div class="logo" onclick="goHome()">PORTFOLIO</div>
-        <label class="avatar" title="Đổi ảnh đại diện">
-            <input type="file" onchange="addAvatar(this)">
+        <label class="avatar" title="Đổi ảnh">
+            <input type="file" onchange="addAvatar(this)" style="display:none">
             <img id="avatarImg" src="">
             <button class="admin-btn" onclick="removeAvatar(event)">✕</button>
         </label>
@@ -105,19 +105,14 @@ footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.
 </header>
 
 <div class="container">
-
     <div class="page active" id="home">
-        <section class="hero">
+        <section style="text-align:center; padding: 40px 0;">
             <h1>Creative Portfolio</h1>
             <div class="admin-btn" style="margin-top: 25px;">
-                <input type="file" id="heroUpload" multiple style="margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;">
-                <button class="btn" onclick="addHero()">+ Add Showcase Media</button>
+                <input type="file" id="heroUpload" multiple style="margin-bottom: 15px;">
+                <button class="btn" onclick="addHero()">+ Add Showcase</button>
             </div>
             <div id="heroContainer"></div>
-        </section>
-        <section class="about">
-            <h2>About Me</h2>
-            <p>Graphic Designer chuyên sâu về hệ thống nhận diện, Poster quảng cáo và Sản xuất Video.</p>
         </section>
         <section class="category-grid">
             <div class="category" onclick="openPage('posterPage')"><span>🖼</span>Poster Design</div>
@@ -127,254 +122,269 @@ footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.
     </div>
 
     <div class="page" id="posterPage">
-        <div class="back-btn" onclick="goHome()" style="cursor:pointer; color:#4cc9f0; margin-bottom:20px;">← Back</div>
+        <div onclick="goHome()" style="cursor:pointer; color:#4cc9f0; margin-bottom:20px;">← Quay lại</div>
         <h2>Poster Collection</h2>
         <div class="admin-btn" style="margin: 20px 0; display: flex; gap: 10px;">
-            <input placeholder="Khách hàng" id="posterClient" type="text">
-            <input placeholder="Ngành hàng" id="posterIndustry" type="text">
-            <button class="btn" onclick="createProject('poster')">Tạo dự án</button>
+            <input id="posterClient" type="text" placeholder="Khách hàng">
+            <input id="posterIndustry" type="text" placeholder="Ngành">
+            <button class="btn" onclick="createProject('poster')">Tạo Folder</button>
         </div>
         <div id="posterProjects"></div>
     </div>
 
     <div class="page" id="printPage">
-        <div class="back-btn" onclick="goHome()" style="cursor:pointer; color:#4cc9f0; margin-bottom:20px;">← Back</div>
-        <h2>Print Design</h2>
+        <div onclick="goHome()" style="cursor:pointer; color:#4cc9f0; margin-bottom:20px;">← Quay lại</div>
+        <h2>Print & Packaging</h2>
         <div class="admin-btn" style="margin: 20px 0; display: flex; gap: 10px;">
             <input id="printClient" type="text" placeholder="Khách hàng">
-            <input id="printIndustry" type="text" placeholder="Ngành hàng">
-            <button class="btn" onclick="createProject('print')">Tạo dự án</button>
+            <input id="printIndustry" type="text" placeholder="Ngành">
+            <button class="btn" onclick="createProject('print')">Tạo Folder</button>
         </div>
         <div id="printProjects"></div>
     </div>
 
     <div class="page" id="videoPage">
-        <div class="back-btn" onclick="goHome()" style="cursor:pointer; color:#4cc9f0; margin-bottom:20px;">← Back</div>
+        <div onclick="goHome()" style="cursor:pointer; color:#4cc9f0; margin-bottom:20px;">← Quay lại</div>
         <h2>Video Production</h2>
         <div class="admin-btn" style="margin: 20px 0; display: flex; gap: 10px;">
             <input id="videoClient" type="text" placeholder="Khách hàng">
-            <input id="videoIndustry" type="text" placeholder="Ngành hàng">
-            <button class="btn" onclick="createProject('video')">Tạo dự án</button>
+            <input id="videoIndustry" type="text" placeholder="Ngành">
+            <button class="btn" onclick="createProject('video')">Tạo Folder</button>
         </div>
         <div id="videoProjects"></div>
     </div>
 
     <footer>
-        <h3>Contact for Work</h3>
         <p>Email: yourmail@gmail.com | Phone: 0123 456 789</p>
-        <p>&copy; 2026 Designed for Creators.</p>
-
         <div class="secret-controls">
-            <span class="dot-trigger admin-btn" title="Xuất Portfolio" onclick="exportPortfolio()">.</span>
-            <span class="dot-trigger" title="Nhập Portfolio" onclick="document.getElementById('importFile').click()">..</span>
+            <span class="dot-trigger admin-btn" title="Xuất File" onclick="exportPortfolio()">.</span>
+            <span class="dot-trigger" title="Mở File" onclick="document.getElementById('importFile').click()">..</span>
             <input type="file" id="importFile" style="display:none" accept=".json" onchange="importPortfolio(this)">
         </div>
     </footer>
 </div>
 
 <div id="viewer" class="viewer">
-    <div class="viewer-content-wrapper">
-        <button class="viewer-back" onclick="closeViewer()">✕ Close</button>
-        <button class="viewer-arrow" style="left:0" onclick="prevMedia()">❮</button>
+    <div class="viewer-back" onclick="closeViewer()">✕ Close (Esc)</div>
+    <button class="viewer-arrow" style="left:30px" onclick="prevMedia()">❮</button>
+    
+    <div id="viewerContainer">
         <div id="viewerContent"></div>
-        <button class="viewer-arrow" style="right:0" onclick="nextMedia()">❯</button>
     </div>
+    
+    <button class="viewer-arrow" style="right:30px" onclick="nextMedia()">❯</button>
 </div>
 
 <script>
-/** * HỆ THỐNG PERSISTENCE & CHIA SẺ **/
+/** 1. DATABASE SYSTEM **/
 let db;
-const request = indexedDB.open("PortfolioDatabase", 1);
+const request = indexedDB.open("Portfolio_Final_DB", 1);
 request.onupgradeneeded = (e) => {
     db = e.target.result;
-    if (!db.objectStoreNames.contains("media")) db.createObjectStore("media", { keyPath: "id" });
-    if (!db.objectStoreNames.contains("projects")) db.createObjectStore("projects", { keyPath: "id" });
+    db.createObjectStore("media", { keyPath: "id" });
+    db.createObjectStore("projects", { keyPath: "id" });
 };
 request.onsuccess = (e) => { db = e.target.result; loadData(); checkMode(); };
 
-function saveToDB(storeName, data) { 
+function saveToDB(store, data) {
     if(document.body.classList.contains('view-only')) return;
-    const tx = db.transaction(storeName, "readwrite"); tx.objectStore(storeName).put(data); 
+    db.transaction(store, "readwrite").objectStore(store).put(data);
 }
 
-// 1. Kiểm tra chế độ xem
+/** 2. ZOOM & DRAG SYSTEM **/
+let scale = 1, isDragging = false, startX, startY, translateX = 0, translateY = 0;
+const viewer = document.getElementById("viewer");
+const vContainer = document.getElementById("viewerContainer");
+const vContent = document.getElementById("viewerContent");
+
+viewer.onwheel = (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.2 : 0.2;
+    scale = Math.min(Math.max(.5, scale + delta), 5);
+    updateTransform();
+};
+
+vContainer.onmousedown = (e) => {
+    isDragging = true;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
+};
+
+window.onmousemove = (e) => {
+    if (!isDragging) return;
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+    updateTransform();
+};
+
+window.onmouseup = () => isDragging = false;
+
+function updateTransform() {
+    vContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+}
+
+function resetTransform() {
+    scale = 1; translateX = 0; translateY = 0;
+    updateTransform();
+}
+
+/** 3. VIEWER CONTROLS **/
+let mediaList = []; let currentIndex = 0;
+
+function openViewer(el) {
+    mediaList = [...el.parentElement.querySelectorAll(".media-item img, .media-item video")];
+    currentIndex = mediaList.indexOf(el.querySelector("img, video"));
+    resetTransform();
+    showMedia();
+    viewer.style.display = "flex";
+    setTimeout(() => viewer.classList.add("active"), 10);
+}
+
+function showMedia() {
+    resetTransform();
+    vContent.innerHTML = "";
+    let original = mediaList[currentIndex];
+    let clone = original.cloneNode(true);
+    if(clone.tagName === "VIDEO") { clone.controls = true; clone.autoplay = true; clone.style.pointerEvents = "auto"; }
+    vContent.appendChild(clone);
+}
+
+function closeViewer() { viewer.classList.remove("active"); setTimeout(() => viewer.style.display = "none", 400); }
+function nextMedia() { currentIndex = (currentIndex + 1) % mediaList.length; showMedia(); }
+function prevMedia() { currentIndex = (currentIndex - 1 + mediaList.length) % mediaList.length; showMedia(); }
+
+/** 4. ADMIN & SHARING FUNCTIONS **/
 function checkMode() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('mode') === 'view') {
+    if (new URLSearchParams(window.location.search).get('mode') === 'view') {
         document.body.classList.add('view-only');
         document.getElementById('exitViewBtn').style.display = 'block';
     }
 }
-
 function exitViewMode() { window.location.href = window.location.pathname; }
 
-// 2. Chức năng Xuất (Dấu 1 chấm)
 async function exportPortfolio() {
-    const data = { media: [], projects: [] };
-    const getStore = (s) => new Promise(res => {
-        db.transaction(s, "readonly").objectStore(s).getAll().onsuccess = e => res(e.target.result);
-    });
-    data.media = await getStore("media");
-    data.projects = await getStore("projects");
-
-    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+    const data = { media: await getAll("media"), projects: await getAll("projects") };
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = `Portfolio_Backup.json`;
-    a.click();
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], {type:"application/json"}));
+    a.download = "Portfolio_Export.json"; a.click();
 }
 
-// 3. Chức năng Nhập (Dấu 2 chấm)
+function getAll(store) {
+    return new Promise(res => db.transaction(store,"readonly").objectStore(store).getAll().onsuccess = e => res(e.target.result));
+}
+
 function importPortfolio(input) {
-    const file = input.files[0]; if (!file) return;
+    const file = input.files[0]; if(!file) return;
     const reader = new FileReader();
-    reader.onload = async (e) => {
-        try {
-            const data = JSON.parse(e.target.result);
-            if(confirm("Dữ liệu mới sẽ tạm thời thay thế dữ liệu cũ để xem. Tiếp tục?")) {
-                const txM = db.transaction("media", "readwrite"); txM.objectStore("media").clear();
-                data.media.forEach(m => txM.objectStore("media").put(m));
-                const txP = db.transaction("projects", "readwrite"); txP.objectStore("projects").clear();
-                data.projects.forEach(p => txP.objectStore("projects").put(p));
-                
-                window.location.href = window.location.pathname + "?mode=view";
-            }
-        } catch (err) { alert("Lỗi tệp!"); }
+    reader.onload = (e) => {
+        const data = JSON.parse(e.target.result);
+        if(confirm("Tải Portfolio này ở chế độ xem?")) {
+            const clearStore = (s) => db.transaction(s,"readwrite").objectStore(s).clear();
+            clearStore("media"); clearStore("projects");
+            data.media.forEach(m => saveToDB("media", m));
+            data.projects.forEach(p => saveToDB("projects", p));
+            window.location.href = window.location.pathname + "?mode=view";
+        }
     };
     reader.readAsText(file);
 }
 
-/** * CÁC CHỨC NĂNG QUẢN LÝ NỘI DUNG (Giữ nguyên logic của bạn) **/
+/** 5. CONTENT MANAGEMENT **/
 function addAvatar(input) {
-    let file = input.files[0]; if (!file) return;
     const reader = new FileReader();
     reader.onload = (e) => {
         document.getElementById("avatarImg").src = e.target.result;
         saveToDB("media", { id: "avatar", data: e.target.result });
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(input.files[0]);
 }
-function removeAvatar(e) { e.preventDefault(); document.getElementById("avatarImg").src = ""; removeFromDB("media", "avatar"); }
 
 function addHero() {
-    let files = document.getElementById("heroUpload").files;
-    for (let file of files) {
+    const files = document.getElementById("heroUpload").files;
+    for(let f of files) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            let heroItem = { id: "hero_" + Date.now() + Math.random(), data: e.target.result, type: file.type.startsWith("video") ? "video" : "image" };
-            saveToDB("media", heroItem); renderHero(heroItem);
+            const item = { id: "hero_"+Date.now()+Math.random(), data: e.target.result, type: f.type.startsWith("video")?"video":"image" };
+            saveToDB("media", item); renderHero(item);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(f);
     }
 }
+
 function renderHero(item) {
-    let wrap = document.createElement("div"); wrap.className = "hero-media"; wrap.id = item.id;
-    let media = item.type === "video" ? document.createElement("video") : document.createElement("img");
-    if(item.type === "video") media.controls = true; media.src = item.data;
-    let del = document.createElement("button"); del.innerHTML = "✕";
-    del.onclick = () => { wrap.remove(); removeFromDB("media", item.id); };
-    wrap.appendChild(media); wrap.appendChild(del);
-    document.getElementById("heroContainer").appendChild(wrap);
+    const div = document.createElement("div"); div.className="hero-media"; div.id=item.id;
+    const m = item.type==="video"?document.createElement("video"):document.createElement("img");
+    m.src = item.data; if(item.type==="video") m.controls=true;
+    const btn = document.createElement("button"); btn.innerHTML="✕";
+    btn.onclick=()=>{ div.remove(); db.transaction("media","readwrite").objectStore("media").delete(item.id); };
+    div.append(m, btn); document.getElementById("heroContainer").append(div);
 }
 
-function createProject(type, existingId = null, existingClient = null, existingIndustry = null) {
-    let id = existingId || type + "_" + Date.now();
-    let client = existingClient || document.getElementById(type + "Client").value;
-    let industry = existingIndustry || document.getElementById(type + "Industry").value;
-    if (!client && !existingId) return;
-    if (!existingId) saveToDB("projects", { id, type, client, industry });
+function createProject(type, exId=null, exC=null, exI=null) {
+    const id = exId || type+"_"+Date.now();
+    const client = exC || document.getElementById(type+"Client").value;
+    const industry = exI || document.getElementById(type+"Industry").value;
+    if(!client && !exId) return;
+    if(!exId) saveToDB("projects", {id, type, client, industry});
 
-    let container = document.getElementById(type + "Projects");
-    let folder = document.createElement("div"); folder.className = "project-folder"; folder.id = id;
-    folder.innerHTML = `
+    const div = document.createElement("div"); div.className="project-folder"; div.id=id;
+    div.innerHTML = `
         <div class="project-header">
-            <div><b style="font-size:20px; color:#4cc9f0">${client}</b><div style="font-size:14px; opacity:0.6">${industry}</div></div>
-            <button class="admin-btn btn" style="background:#ff4d6d; color:white; padding:5px 10px;" onclick="deleteProject('${id}')">Xóa</button>
+            <div><b style="color:#4cc9f0">${client}</b><br><small>${industry}</small></div>
+            <button class="admin-btn btn" style="background:#ff4d6d; color:white;" onclick="deleteProject('${id}')">Xóa</button>
         </div>
-        <div class="admin-btn" style="margin-bottom:15px">
-            <input type="file" multiple onchange="addMedia(event, '${id}')">
-        </div>
+        <div class="admin-btn" style="margin:10px 0"><input type="file" multiple onchange="addMedia(event,'${id}')"></div>
         <div class="project-media"></div>
     `;
-    container.prepend(folder);
+    document.getElementById(type+"Projects").prepend(div);
 }
 
-function addMedia(e, projectId) {
-    let files = e.target.files;
-    for (let file of files) {
+function addMedia(e, pId) {
+    for(let f of e.target.files) {
         const reader = new FileReader();
         reader.onload = (ev) => {
-            let type = file.type.startsWith("video") ? "video" : "image";
-            let mediaItem = { id: "m_" + Date.now() + Math.random(), projectId, data: ev.target.result, type };
-            saveToDB("media", mediaItem); renderMedia(mediaItem);
+            const item = { id:"m_"+Date.now()+Math.random(), projectId:pId, data:ev.target.result, type:f.type.startsWith("video")?"video":"image" };
+            saveToDB("media", item); renderMedia(item);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(f);
     }
 }
 
 function renderMedia(item) {
-    let folder = document.getElementById(item.projectId); if(!folder) return;
-    let box = folder.querySelector(".project-media");
-    let div = document.createElement("div"); div.className = "media-item"; div.id = item.id;
-    let m = item.type === "video" ? document.createElement("video") : document.createElement("img");
-    m.src = item.data; m.onclick = () => openViewer(div);
-    let del = document.createElement("button"); del.className = "delete-file admin-btn"; del.innerHTML = "✕";
-    del.style = "position:absolute; top:5px; right:5px; background:#ff4d6d; border:none; color:white; border-radius:50%; cursor:pointer; width:20px; height:20px;";
-    del.onclick = (e) => { e.stopPropagation(); div.remove(); removeFromDB("media", item.id); };
-    div.appendChild(m); div.appendChild(del);
-    box.appendChild(div);
-}
-
-function removeFromDB(storeName, id) { 
-    if(document.body.classList.contains('view-only')) return;
-    db.transaction(storeName, "readwrite").objectStore(storeName).delete(id); 
-}
-
-function deleteProject(id) {
-    if(confirm("Xóa dự án?")) {
-        document.getElementById(id).remove();
-        db.transaction("projects", "readwrite").objectStore("projects").delete(id);
-    }
+    const folder = document.getElementById(item.projectId); if(!folder) return;
+    const div = document.createElement("div"); div.className="media-item"; div.id=item.id;
+    const m = item.type==="video"?document.createElement("video"):document.createElement("img");
+    m.src=item.data; m.onclick=()=>openViewer(div);
+    const del = document.createElement("button"); del.className="admin-btn"; del.innerHTML="✕";
+    del.style="position:absolute;top:5px;right:5px;background:#ff4d6d;border:none;color:white;border-radius:50%;width:20px;height:20px;cursor:pointer;";
+    del.onclick=(e)=>{e.stopPropagation(); div.remove(); db.transaction("media","readwrite").objectStore("media").delete(item.id);};
+    div.append(m, del); folder.querySelector(".project-media").append(div);
 }
 
 function loadData() {
-    db.transaction("media").objectStore("media").get("avatar").onsuccess = (e) => { if(e.target.result) document.getElementById("avatarImg").src = e.target.result.data; };
-    db.transaction("projects").objectStore("projects").openCursor().onsuccess = (e) => {
-        let cursor = e.target.result;
-        if(cursor) { createProject(cursor.value.type, cursor.value.id, cursor.value.client, cursor.value.industry); cursor.continue(); }
+    db.transaction("media").objectStore("media").get("avatar").onsuccess=e=>{if(e.target.result)document.getElementById("avatarImg").src=e.target.result.data;};
+    db.transaction("projects").objectStore("projects").openCursor().onsuccess=e=>{
+        const c = e.target.result; if(c){ createProject(c.value.type, c.value.id, c.value.client, c.value.industry); c.continue(); }
         else {
-            db.transaction("media").objectStore("media").openCursor().onsuccess = (ev) => {
-                let mCursor = ev.target.result; 
-                if(mCursor) { 
-                    if(mCursor.value.id.startsWith("hero_")) renderHero(mCursor.value); 
-                    else if(mCursor.value.projectId) renderMedia(mCursor.value); 
-                    mCursor.continue(); 
+            db.transaction("media").objectStore("media").openCursor().onsuccess=ev=>{
+                const m = ev.target.result; if(m){
+                    if(m.value.id.startsWith("hero_")) renderHero(m.value);
+                    else if(m.value.projectId) renderMedia(m.value);
+                    m.continue();
                 }
-            };
+            }
         }
     };
 }
 
-function goHome() { document.querySelectorAll(".page").forEach(p => { p.classList.remove("active"); p.style.display="none"; }); document.getElementById("home").style.display="block"; setTimeout(()=>document.getElementById("home").classList.add("active"),10); }
-function openPage(id) { document.querySelectorAll(".page").forEach(p => { p.classList.remove("active"); p.style.display="none"; }); document.getElementById(id).style.display="block"; setTimeout(()=>document.getElementById(id).classList.add("active"),10); }
+function goHome() { document.querySelectorAll(".page").forEach(p=>{p.classList.remove("active"); p.style.display="none";}); document.getElementById("home").style.display="block"; setTimeout(()=>document.getElementById("home").classList.add("active"),10); }
+function openPage(id) { document.querySelectorAll(".page").forEach(p=>{p.classList.remove("active"); p.style.display="none";}); document.getElementById(id).style.display="block"; setTimeout(()=>document.getElementById(id).classList.add("active"),10); }
 
-// Lightbox logic (đơn giản hóa)
-let mediaList = []; let currentIndex = 0;
-function openViewer(el) {
-    mediaList = [...el.parentElement.querySelectorAll(".media-item img, .media-item video")];
-    currentIndex = mediaList.indexOf(el.querySelector("img, video"));
-    showMedia();
-    document.getElementById("viewer").style.display = "flex";
-    setTimeout(() => document.getElementById("viewer").classList.add("active"), 10);
-}
-function showMedia() {
-    let content = document.getElementById("viewerContent"); content.innerHTML = "";
-    let clone = mediaList[currentIndex].cloneNode(true); clone.controls = true; content.appendChild(clone);
-}
-function closeViewer() { document.getElementById("viewer").classList.remove("active"); setTimeout(() => document.getElementById("viewer").style.display = "none", 400); }
-function nextMedia() { currentIndex = (currentIndex + 1) % mediaList.length; showMedia(); }
-function prevMedia() { currentIndex = (currentIndex - 1 + mediaList.length) % mediaList.length; showMedia(); }
-
+window.onkeydown = (e) => {
+    if(e.key === "Escape") closeViewer();
+    if(e.key === "ArrowRight" && viewer.style.display === "flex") nextMedia();
+    if(e.key === "ArrowLeft" && viewer.style.display === "flex") prevMedia();
+};
 </script>
 </body>
 </html>
