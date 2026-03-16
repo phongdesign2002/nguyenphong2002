@@ -6,7 +6,7 @@
 <title>Creative Portfolio | Persistence & Search</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-/* --- CORE STYLE (Giữ nguyên của bạn) --- */
+/* --- GIỮ NGUYÊN STYLE CŨ --- */
 *{margin:0;padding:0;box-sizing:border-box}
 body{
     font-family:'Inter', sans-serif;
@@ -16,91 +16,56 @@ body{
     overflow-x:hidden;
 }
 
-/* Chế độ View-only: Ẩn các nút admin */
+/* --- STYLE MỚI CHO CHẾ ĐỘ VIEW-ONLY --- */
 body.view-only .admin-btn, 
 body.view-only .delete-file, 
 body.view-only .delete-selected,
 body.view-only input[type="file"],
 body.view-only .project-folder button[onclick^="deleteProject"],
-body.view-only .hero button { 
+body.view-only .hero button,
+body.view-only .search-box + div { 
     display: none !important; 
 }
 
-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:20px 8%;
-    border-bottom:1px solid rgba(255,255,255,.08);
-    background: rgba(5, 10, 24, 0.9);
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+/* Các style khác giữ nguyên từ code của bạn... */
+header{ display:flex; align-items:center; justify-content:space-between; padding:20px 8%; border-bottom:1px solid rgba(255,255,255,.08); background: rgba(5, 10, 24, 0.9); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;}
+.header-left{display:flex;align-items:center;gap:15px;}
 .logo{font-weight:700;font-size:22px;color:#4cc9f0;cursor:pointer;letter-spacing: 1px;}
 .avatar{width:45px;height:45px;border-radius:50%;overflow:hidden;border:2px solid rgba(76, 201, 240, 0.5);cursor:pointer;position:relative;background:#222;}
 .avatar img{width:100%;height:100%;object-fit:cover;}
 .avatar input{display:none}
 .avatar button{position:absolute;bottom:-5px;right:-5px;background:#ff4d6d;border:none;width:20px;height:20px;border-radius:50%;color:white;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;}
-
 .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 5%; }
-
 .page { display: none; opacity: 0; padding: 40px 0 80px 0; }
 .page.active { display: block; animation: fadeInPage 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-
 @keyframes fadeInPage { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
 .hero{text-align:center; padding: 40px 0 60px 0;}
 .hero-media{max-width:850px; margin:30px auto; position:relative; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.6);}
 .hero-media img, .hero-media video{width:100%; display: block; aspect-ratio:16/9; object-fit:cover;}
 .hero-media button{position:absolute;top:15px;right:15px;background:#ff4d6d;border:none;width:32px;height:32px;border-radius:50%;color:white;cursor:pointer;z-index:10;}
-
 .about{max-width:750px; margin:0 auto 80px auto; text-align: center;}
-.about p{color:#9aa4c7; margin-top:20px; line-height:1.8; font-size: 1.1rem; font-weight: 300;}
-
+.about p{color:#9aa4c7; margin-top:20px; line-height:1.8; font-size: 1.1rem;}
 .category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px; margin-bottom: 60px;}
-.category{background:rgba(17, 24, 51, 0.6); padding:60px 30px; border-radius:18px; text-align:center; cursor:pointer; transition:all 0.4s ease; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(5px);}
-.category:hover{transform:translateY(-12px); box-shadow:0 30px 60px rgba(0,0,0,0.5); background:rgba(22, 31, 66, 0.8); border-color: #4cc9f0;}
+.category{background:rgba(17, 24, 51, 0.6); padding:60px 30px; border-radius:18px; text-align:center; cursor:pointer; transition:all 0.4s ease; border: 1px solid rgba(255,255,255,0.05);}
+.category:hover{transform:translateY(-12px); background:rgba(22, 31, 66, 0.8); border-color: #4cc9f0;}
 .category span{font-size:55px; display:block; margin-bottom:15px;}
-
-.back-btn{cursor:pointer; margin-bottom: 30px; color: #4cc9f0; display: inline-flex; align-items: center; gap: 8px; font-weight: 600;}
-
-.search-box { margin-bottom: 35px; padding: 20px; background: rgba(76, 201, 240, 0.04); border-radius: 15px; border: 1px solid rgba(76, 201, 240, 0.15); }
-.search-box input { width: 100%; border: 1px solid #4cc9f0 !important; font-size: 16px; background: #1e264d; color: white; padding: 14px; border-radius: 10px; outline: none; }
-
-.project-folder{ background:rgba(17, 24, 51, 0.8); padding:35px; border-radius:20px; margin-top:40px; border: 1px solid rgba(255,255,255,0.03); }
+.back-btn{cursor:pointer; margin-bottom: 30px; color: #4cc9f0; display: inline-flex; align-items: center; gap: 8px;}
+.search-box { margin-bottom: 35px; padding: 20px; background: rgba(76, 201, 240, 0.04); border-radius: 15px; border: 1px solid rgba(76, 201, 240, 0.15);}
+.search-box input { width: 100%; border: 1px solid #4cc9f0 !important; font-size: 16px; background: #1e264d; color: white; padding: 14px; border-radius: 10px; outline: none;}
+.project-folder{ background:rgba(17, 24, 51, 0.8); padding:35px; border-radius:20px; margin-top:40px; border: 1px solid rgba(255,255,255,0.03);}
 .project-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;}
-.project-media{ display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:18px; margin-top:25px; }
-
+.project-media{ display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:18px; margin-top:25px;}
 .media-item{position:relative; border-radius: 12px; overflow: hidden;}
 .media-item img, .media-item video{width:100%; cursor:pointer; aspect-ratio:1/1; object-fit:cover; display: block;}
+.media-item input[type="checkbox"]{position:absolute; top:12px; left:12px; transform:scale(1.5); z-index:5;}
 .delete-file{position:absolute; top:12px; right:12px; background:#ff4d6d; border:none; width:30px; height:30px; border-radius:50%; color:white; cursor:pointer; z-index:5;}
-
-.filter{margin-bottom:25px; display:flex; flex-wrap: wrap; gap:12px;}
+.psd-file{background:#1e264d; padding:20px; border-radius:12px; text-align:center; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; font-size:13px; border: 1px dashed rgba(76, 201, 240, 0.4);}
+.filter{margin-bottom:25px; display:flex; gap:12px;}
 .filter button{background:#222b55; border:none; padding:10px 20px; border-radius:10px; color:white; cursor:pointer;}
-.btn{background:#4cc9f0; border:none; padding:14px 28px; border-radius:10px; cursor:pointer; font-weight:700; color:#050a18; transition: .3s;}
-
-/* --- FOOTER & ADMIN TRIGGERS STYLE --- */
-footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.05); text-align:center; background: rgba(0,0,0,0.15);}
-footer p{color:#6b78a8; margin-top: 10px; font-weight: 300;}
-
-.admin-triggers {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-.dot-link {
-    color: #222b55; /* Màu rất mờ trùng với nền */
-    cursor: pointer;
-    font-size: 24px;
-    transition: 0.3s;
-    user-select: none;
-}
-.dot-link:hover {
-    color: #4cc9f0; /* Hiện màu khi di chuột vào (dành cho chủ nhân biết chỗ) */
-}
+.btn{background:#4cc9f0; border:none; padding:14px 28px; border-radius:10px; cursor:pointer; font-weight:700; color:#050a18; display: inline-flex; align-items: center; transition: .3s;}
+.btn:hover{ transform: translateY(-2px); opacity: 0.9;}
+.share-group{ display: flex; gap: 10px; }
+.btn-share{ background: #8338ec; color: white; }
 
 /* --- VIEWER --- */
 .viewer{ position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.98); display:none; align-items:center; justify-content:center; z-index:9999; }
@@ -108,8 +73,11 @@ footer p{color:#6b78a8; margin-top: 10px; font-weight: 300;}
 .viewer-content-wrapper { position: relative; width: 90%; height: 90%; display: flex; align-items: center; justify-content: center; }
 .viewer img, .viewer video{max-width:100%; max-height:100%;}
 .viewer-arrow{position:absolute; top:50%; transform:translateY(-50%); font-size:45px; background:none; border:none; color:white; cursor:pointer;}
-.viewer-arrow.left{left:-80px}
-.viewer-arrow.right{right:-80px}
+.viewer-arrow.left{left:0}
+.viewer-arrow.right{right:0}
+.viewer-back{position:absolute; top:-40px; left:0; color:white; background:none; border:none; cursor:pointer; font-size: 20px;}
+
+footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.05); text-align:center;}
 </style>
 </head>
 
@@ -124,11 +92,16 @@ footer p{color:#6b78a8; margin-top: 10px; font-weight: 300;}
             <button class="admin-btn" onclick="removeAvatar(event)">✕</button>
         </label>
     </div>
-    <button id="exitViewBtn" class="btn" style="display:none; background:#ff4d6d; color:white; padding: 8px 15px;" onclick="exitViewMode()">Thoát Chế độ Xem</button>
+    <div class="share-group">
+        <button class="btn btn-share admin-btn" onclick="exportPortfolio()">📤 Xuất Portfolio (Để chia sẻ)</button>
+        <button class="btn" style="background: #fb5607; color: white;" onclick="document.getElementById('importFile').click()">📂 Mở File Portfolio</button>
+        <input type="file" id="importFile" style="display:none" accept=".json" onchange="importPortfolio(this)">
+        
+        <button id="exitViewBtn" class="btn" style="display:none; background:#ff4d6d; color:white;" onclick="exitViewMode()">Thoát Chế độ Xem</button>
+    </div>
 </header>
 
 <div class="container">
-
     <div class="page active" id="home">
         <section class="hero">
             <h1>Creative Portfolio</h1>
@@ -140,7 +113,7 @@ footer p{color:#6b78a8; margin-top: 10px; font-weight: 300;}
         </section>
         <section class="about">
             <h2>About Me</h2>
-            <p>Graphic Designer chuyên sâu về hệ thống nhận diện, Poster quảng cáo và Sản xuất Video.</p>
+            <p>Graphic Designer chuyên sâu về hệ thống nhận diện, Poster quảng cáo và Sản xuất Video. Với lối tư duy tối giản và tập trung vào trải nghiệm thị giác.</p>
         </section>
         <section class="category-grid">
             <div class="category" onclick="openPage('posterPage')"><span>🖼</span>Poster Design</div>
@@ -152,22 +125,24 @@ footer p{color:#6b78a8; margin-top: 10px; font-weight: 300;}
     <div class="page" id="posterPage">
         <div class="back-btn" onclick="goHome()">← Back to Dashboard</div>
         <h2>Poster Collection</h2>
-        <div class="search-box"><input type="text" id="posterSearch" placeholder="🔍 Tìm nhanh dự án..." onkeyup="searchProjects('poster')"></div>
-        <div class="admin-btn" style="display: flex; gap: 10px; margin-bottom: 30px;">
-            <input placeholder="Tên khách hàng" id="posterClient" type="text" style="flex: 1; padding:10px; border-radius:8px; background:#1e264d; color:white; border:none;">
-            <input placeholder="Ngành hàng" id="posterIndustry" type="text" style="flex: 1; padding:10px; border-radius:8px; background:#1e264d; color:white; border:none;">
-            <button class="btn" onclick="createProject('poster')">Tạo dự án</button>
+        <div class="search-box">
+            <input type="text" id="posterSearch" placeholder="🔍 Tìm nhanh dự án..." onkeyup="searchProjects('poster')">
+        </div>
+        <div class="admin-btn" style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px;">
+            <input placeholder="Tên khách hàng" id="posterClient" type="text" style="flex: 1; min-width: 200px; background:#1e264d; color:white; border:1px solid #333; padding:10px; border-radius:8px;">
+            <input placeholder="Ngành hàng" id="posterIndustry" type="text" style="flex: 1; min-width: 200px; background:#1e264d; color:white; border:1px solid #333; padding:10px; border-radius:8px;">
+            <button class="btn" onclick="createProject('poster')">Tạo thư mục dự án</button>
         </div>
         <div id="posterProjects"></div>
     </div>
-
+    
     <div class="page" id="printPage">
         <div class="back-btn" onclick="goHome()">← Back to Dashboard</div>
         <h2>Print & Packaging</h2>
         <div class="search-box"><input type="text" id="printSearch" placeholder="🔍 Tìm nhanh..." onkeyup="searchProjects('print')"></div>
-        <div class="admin-btn" style="display: flex; gap: 10px; margin-bottom: 30px;">
-            <input placeholder="Tên khách hàng" id="printClient" type="text" style="flex: 1; padding:10px; border-radius:8px; background:#1e264d; color:white; border:none;">
-            <input placeholder="Ngành hàng" id="printIndustry" type="text" style="flex: 1; padding:10px; border-radius:8px; background:#1e264d; color:white; border:none;">
+        <div class="admin-btn" style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <input id="printClient" type="text" placeholder="Tên khách hàng">
+            <input id="printIndustry" type="text" placeholder="Ngành hàng">
             <button class="btn" onclick="createProject('print')">Tạo dự án</button>
         </div>
         <div id="printProjects"></div>
@@ -177,9 +152,9 @@ footer p{color:#6b78a8; margin-top: 10px; font-weight: 300;}
         <div class="back-btn" onclick="goHome()">← Back to Dashboard</div>
         <h2>Video Production</h2>
         <div class="search-box"><input type="text" id="videoSearch" placeholder="🔍 Tìm nhanh..." onkeyup="searchProjects('video')"></div>
-        <div class="admin-btn" style="display: flex; gap: 10px; margin-bottom: 30px;">
-            <input placeholder="Tên khách hàng" id="videoClient" type="text" style="flex: 1; padding:10px; border-radius:8px; background:#1e264d; color:white; border:none;">
-            <input placeholder="Ngành hàng" id="videoIndustry" type="text" style="flex: 1; padding:10px; border-radius:8px; background:#1e264d; color:white; border:none;">
+        <div class="admin-btn" style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <input id="videoClient" type="text" placeholder="Tên khách hàng">
+            <input id="videoIndustry" type="text" placeholder="Ngành hàng">
             <button class="btn" onclick="createProject('video')">Tạo dự án</button>
         </div>
         <div id="videoProjects"></div>
@@ -189,19 +164,12 @@ footer p{color:#6b78a8; margin-top: 10px; font-weight: 300;}
         <h3>Contact for Work</h3>
         <p>Email: yourmail@gmail.com | Phone: 0123 456 789</p>
         <p>&copy; 2026 Designed for Creators.</p>
-        
-        <div class="admin-triggers">
-            <span class="dot-link" onclick="exportPortfolio()" title="Xuất dữ liệu">.</span>
-            <span class="dot-link" onclick="document.getElementById('importFile').click()" title="Mở dữ liệu">..</span>
-            <input type="file" id="importFile" style="display:none" accept=".json" onchange="importPortfolio(this)">
-        </div>
     </footer>
-
 </div>
 
 <div id="viewer" class="viewer">
     <div class="viewer-content-wrapper">
-        <button style="position:absolute; top:-40px; left:0; color:white; background:none; border:none; cursor:pointer;" onclick="closeViewer()">✕ Close</button>
+        <button class="viewer-back" onclick="closeViewer()">✕ Close</button>
         <button class="viewer-arrow left" onclick="prevMedia()">❮</button>
         <div id="viewerContent"></div>
         <button class="viewer-arrow right" onclick="nextMedia()">❯</button>
@@ -209,7 +177,7 @@ footer p{color:#6b78a8; margin-top: 10px; font-weight: 300;}
 </div>
 
 <script>
-/** * PERSISTENCE SYSTEM (IndexedDB) **/
+/** * HỆ THỐNG DB (IndexedDB) - GIỮ NGUYÊN */
 let db;
 const request = indexedDB.open("PortfolioDatabase", 1);
 request.onupgradeneeded = (e) => {
@@ -217,68 +185,105 @@ request.onupgradeneeded = (e) => {
     if (!db.objectStoreNames.contains("media")) db.createObjectStore("media", { keyPath: "id" });
     if (!db.objectStoreNames.contains("projects")) db.createObjectStore("projects", { keyPath: "id" });
 };
-request.onsuccess = (e) => { db = e.target.result; loadData(); checkViewMode(); };
+request.onsuccess = (e) => { db = e.target.result; loadData(); checkMode(); };
 
 function saveToDB(storeName, data) { 
-    if(document.body.classList.contains('view-only')) return;
+    if(document.body.classList.contains('view-only')) return; // Chặn lưu nếu đang xem
     const tx = db.transaction(storeName, "readwrite"); 
     tx.objectStore(storeName).put(data); 
 }
 
-/* --- CHỨC NĂNG CHIA SẺ & BẢO MẬT --- */
+/* --- TÍNH NĂNG CHIA SẺ & VIEW-ONLY MỚI --- */
 
-function checkViewMode() {
-    const params = new URLSearchParams(window.location.search);
-    if(params.get('mode') === 'view') {
-        document.body.classList.add('view-only');
-        document.getElementById('exitViewBtn').style.display = 'block';
+// 1. Kiểm tra chế độ xem từ URL hoặc trạng thái tạm thời
+function checkMode() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('mode') === 'view') {
+        enableViewMode();
     }
 }
 
-function exitViewMode() { window.location.href = window.location.pathname; }
+function enableViewMode() {
+    document.body.classList.add('view-only');
+    document.getElementById('exitViewBtn').style.display = 'block';
+}
 
-// Xuất File (Dấu 1 chấm)
+function exitViewMode() {
+    window.location.href = window.location.pathname; // Load lại trang bình thường
+}
+
+// 2. Xuất toàn bộ dữ liệu ra file JSON
 async function exportPortfolio() {
-    const data = { media: [], projects: [] };
-    const getStore = (name) => new Promise(res => {
-        db.transaction(name, "readonly").objectStore(name).getAll().onsuccess = e => res(e.target.result);
-    });
-    data.media = await getStore("media");
-    data.projects = await getStore("projects");
+    const data = {
+        media: [],
+        projects: []
+    };
+
+    const getStoreData = (storeName) => {
+        return new Promise((resolve) => {
+            const tx = db.transaction(storeName, "readonly");
+            const store = tx.objectStore(storeName);
+            store.getAll().onsuccess = (e) => resolve(e.target.result);
+        });
+    };
+
+    data.media = await getStoreData("media");
+    data.projects = await getStoreData("projects");
 
     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `Portfolio_Data_${new Date().getTime()}.json`;
+    a.download = `Portfolio_Share_${new Date().toLocaleDateString()}.json`;
     a.click();
 }
 
-// Nhập File (Dấu 2 chấm)
+// 3. Nhập dữ liệu từ file JSON người khác gửi
 function importPortfolio(input) {
     const file = input.files[0];
     if (!file) return;
+
     const reader = new FileReader();
     reader.onload = async (e) => {
         try {
             const data = JSON.parse(e.target.result);
-            if(confirm("Dữ liệu mới sẽ thay thế dữ liệu hiện tại trên trình duyệt này. Tiếp tục?")) {
-                const clearFill = (name, items) => {
-                    const tx = db.transaction(name, "readwrite");
-                    const store = tx.objectStore(name);
+            
+            // Xóa dữ liệu cũ tạm thời trong phiên làm việc này hoặc hiển thị trực tiếp
+            // Ở đây ta sẽ ghi đè vào IndexedDB và bật chế độ View-only
+            if(confirm("Bạn có muốn mở Portfolio này không? (Dữ liệu hiện tại của bạn sẽ bị thay thế)")) {
+                const clearAndFill = (storeName, items) => {
+                    const tx = db.transaction(storeName, "readwrite");
+                    const store = tx.objectStore(storeName);
                     store.clear();
-                    items.forEach(i => store.put(i));
+                    items.forEach(item => store.put(item));
                 };
-                clearFill("media", data.media);
-                clearFill("projects", data.projects);
+
+                clearAndFill("media", data.media);
+                clearAndFill("projects", data.projects);
+
+                alert("Đã tải dữ liệu! Trang sẽ chuyển sang chế độ Xem.");
                 window.location.href = window.location.pathname + "?mode=view";
             }
-        } catch (err) { alert("Lỗi đọc file!"); }
+        } catch (err) {
+            alert("Tệp không hợp lệ!");
+        }
     };
     reader.readAsText(file);
 }
 
-/* --- CÁC HÀM CƠ BẢN (Giữ nguyên logic của bạn) --- */
+/* --- CÁC HÀM CŨ CỦA BẠN (Đã sửa nhẹ để tương thích) --- */
+// (Phần này bạn copy lại toàn bộ logic addHero, createProject, renderMedia... từ code cũ của bạn)
+// Lưu ý: Đảm bảo các nút xóa có class 'admin-btn' để nó ẩn đi khi ở chế độ xem.
+
+function searchProjects(type) {
+    let input = document.getElementById(type + 'Search').value.toLowerCase();
+    let container = document.getElementById(type + 'Projects');
+    let folders = container.getElementsByClassName('project-folder');
+    for (let i = 0; i < folders.length; i++) {
+        let label = folders[i].querySelector('.industry-label').innerText.toLowerCase();
+        folders[i].style.display = label.includes(input) ? "" : "none";
+    }
+}
 
 function addAvatar(input) {
     let file = input.files[0]; if (!file) return;
@@ -289,6 +294,7 @@ function addAvatar(input) {
     };
     reader.readAsDataURL(file);
 }
+
 function removeAvatar(e) { e.preventDefault(); document.getElementById("avatarImg").src = ""; removeFromDB("media", "avatar"); }
 
 function addHero() {
@@ -302,6 +308,7 @@ function addHero() {
         reader.readAsDataURL(file);
     }
 }
+
 function renderHero(item) {
     let wrap = document.createElement("div"); wrap.className = "hero-media"; wrap.id = item.id;
     let media = item.type === "video" ? document.createElement("video") : document.createElement("img");
@@ -317,27 +324,47 @@ function createProject(type, existingId = null, existingClient = null, existingI
     let id = existingId || type + "_" + Date.now();
     let client = existingClient || document.getElementById(type + "Client").value;
     let industry = existingIndustry || document.getElementById(type + "Industry").value;
-    if (!client) return;
-    if (!existingId) saveToDB("projects", { id, type, client, industry });
+    if (!client) { if(!existingId) alert("Nhập tên khách hàng!"); return; }
+    if (!existingId) { saveToDB("projects", { id, type, client, industry }); }
 
     let container = document.getElementById(type + "Projects");
     let folder = document.createElement("div"); folder.className = "project-folder"; folder.id = id;
     folder.innerHTML = `
         <div class="project-header">
-            <div><b style="font-size:22px; color:#4cc9f0">${client}</b><div class="industry-label" style="color:#9aa4c7; font-size:15px">Ngành: ${industry}</div></div>
-            <button class="btn admin-btn" style="background:#ff4d6d; color:white; padding:8px 16px;" onclick="deleteProject('${id}')">Xóa</button>
+            <div><b style="font-size:22px; color:#4cc9f0">${client}</b><div class="industry-label" style="color:#9aa4c7; font-size:15px; margin-top:5px">Ngành hàng: ${industry}</div></div>
+            <button class="btn admin-btn" style="background:#ff4d6d; color:white; padding:8px 16px; font-size:12px" onclick="deleteProject('${id}')">Xóa dự án</button>
         </div>
         <div class="filter">
             <button onclick="filterMedia(this,'all')">Tất cả</button>
-            <button onclick="filterMedia(this,'image')">Ảnh</button>
+            <button onclick="filterMedia(this,'image')">Hình ảnh</button>
             <button onclick="filterMedia(this,'video')">Video</button>
+            <button onclick="filterMedia(this,'psd')">PSD</button>
         </div>
-        <div class="admin-btn" style="margin-bottom:20px;">
+        <div class="admin-btn" style="background:rgba(255,255,255,0.02); padding:18px; border-radius:12px; margin-bottom:20px; border: 1px solid rgba(255,255,255,0.05)">
+            <p style="font-size:13px; color:#4cc9f0; margin-bottom:10px; font-weight:600">Thêm tệp cho dự án này:</p>
             <input type="file" multiple onchange="addMedia(event, '${id}')">
         </div>
+        <button class="delete-selected admin-btn" onclick="deleteSelected(this)">Xóa mục đã chọn 🗑</button>
         <div class="project-media"></div>
     `;
     container.prepend(folder);
+    if(!existingId){ document.getElementById(type + "Client").value = ""; document.getElementById(type + "Industry").value = ""; }
+}
+
+function removeFromDB(storeName, id) { 
+    if(document.body.classList.contains('view-only')) return;
+    const tx = db.transaction(storeName, "readwrite"); tx.objectStore(storeName).delete(id); 
+}
+
+function deleteProject(id) {
+    if(confirm("Xóa toàn bộ thư mục và tệp của dự án này?")) {
+        document.getElementById(id).remove(); removeFromDB("projects", id);
+        let tx = db.transaction("media", "readwrite");
+        let store = tx.objectStore("media");
+        store.openCursor().onsuccess = (e) => {
+            let cursor = e.target.result; if(cursor) { if(cursor.value.projectId === id) cursor.delete(); cursor.continue(); }
+        };
+    }
 }
 
 function addMedia(e, projectId) {
@@ -345,8 +372,8 @@ function addMedia(e, projectId) {
     for (let file of files) {
         const reader = new FileReader();
         reader.onload = (ev) => {
-            let type = file.type.startsWith("video") ? "video" : "image";
-            let mediaItem = { id: "m_" + Date.now() + Math.random(), projectId: projectId, data: ev.target.result, type: type };
+            let type = file.name.endsWith(".psd") ? "psd" : (file.type.startsWith("video") ? "video" : "image");
+            let mediaItem = { id: "m_" + Date.now() + Math.random(), projectId: projectId, data: ev.target.result, type: type, name: file.name };
             saveToDB("media", mediaItem); renderMedia(mediaItem);
         };
         reader.readAsDataURL(file);
@@ -356,18 +383,18 @@ function addMedia(e, projectId) {
 function renderMedia(item) {
     let folder = document.getElementById(item.projectId); if(!folder) return;
     let box = folder.querySelector(".project-media");
-    let div = document.createElement("div"); div.className = "media-item"; div.id = item.id;
+    let div = document.createElement("div"); div.className = "media-item"; div.dataset.type = item.type; div.id = item.id;
+    let cb = document.createElement("input"); cb.type = "checkbox";
     let del = document.createElement("button"); del.className = "delete-file admin-btn"; del.innerHTML = "✕";
     del.onclick = () => { div.remove(); removeFromDB("media", item.id); };
-    let m = item.type === "video" ? document.createElement("video") : document.createElement("img");
-    if(item.type === "video") m.controls = true; m.src = item.data; m.onclick = () => openViewer(div);
-    div.appendChild(del); div.appendChild(m);
+    div.appendChild(cb); div.appendChild(del);
+    if (item.type === "psd") {
+        let psd = document.createElement("div"); psd.className = "psd-file"; psd.innerHTML = `📂 PSD<br>${item.name}`; div.appendChild(psd);
+    } else {
+        let m = item.type === "video" ? document.createElement("video") : document.createElement("img");
+        if(item.type === "video") m.controls = true; m.src = item.data; m.onclick = () => openViewer(div); div.appendChild(m);
+    }
     box.appendChild(div);
-}
-
-function removeFromDB(storeName, id) { 
-    if(document.body.classList.contains('view-only')) return;
-    db.transaction(storeName, "readwrite").objectStore(storeName).delete(id); 
 }
 
 function loadData() {
@@ -384,43 +411,52 @@ function loadData() {
 }
 
 function goHome() { 
-    document.querySelectorAll(".page").forEach(p => { p.classList.remove("active"); p.style.display = "none"; });
-    const h = document.getElementById("home"); h.style.display = "block"; setTimeout(() => h.classList.add("active"), 10);
+    const pages = document.querySelectorAll(".page");
+    pages.forEach(p => { p.classList.remove("active"); p.style.display = "none"; });
+    const home = document.getElementById("home");
+    home.style.display = "block";
+    setTimeout(() => home.classList.add("active"), 10);
+    window.scrollTo({top: 0, behavior: 'smooth'});
 }
 function openPage(id) {
-    document.querySelectorAll(".page").forEach(p => { p.classList.remove("active"); p.style.display = "none"; });
-    const t = document.getElementById(id); t.style.display = "block"; setTimeout(() => t.classList.add("active"), 10);
+    const pages = document.querySelectorAll(".page");
+    pages.forEach(p => { p.classList.remove("active"); p.style.display = "none"; });
+    const target = document.getElementById(id);
+    target.style.display = "block";
+    setTimeout(() => target.classList.add("active"), 10);
+    window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 function filterMedia(btn, type) {
-    btn.closest(".project-folder").querySelectorAll(".media-item").forEach(i => i.style.display = (type === "all" || i.dataset.type === type) ? "block" : "none");
+    let items = btn.closest(".project-folder").querySelectorAll(".media-item");
+    items.forEach(i => i.style.display = (type === "all" || i.dataset.type === type) ? "block" : "none");
+}
+function deleteSelected(btn) {
+    let folder = btn.parentElement;
+    folder.querySelectorAll("input[type=checkbox]:checked").forEach(cb => { let item = cb.closest(".media-item"); removeFromDB("media", item.id); item.remove(); });
 }
 
 let mediaList = []; let currentIndex = 0;
 function openViewer(el) {
-    mediaList = [...el.parentElement.querySelectorAll(".media-item")];
+    mediaList = [...el.parentElement.querySelectorAll(".media-item:not([data-type='psd'])")];
     currentIndex = mediaList.indexOf(el);
     showMedia();
-    document.getElementById("viewer").style.display = "flex";
-    setTimeout(() => document.getElementById("viewer").classList.add("active"), 10);
+    let v = document.getElementById("viewer");
+    v.style.display = "flex";
+    setTimeout(() => v.classList.add("active"), 10);
 }
 function showMedia() {
     let content = document.getElementById("viewerContent"); content.innerHTML = "";
     let original = mediaList[currentIndex].querySelector("img,video");
     let clone = original.cloneNode(true); clone.controls = true; content.appendChild(clone);
 }
-function closeViewer() { document.getElementById("viewer").classList.remove("active"); setTimeout(() => document.getElementById("viewer").style.display = "none", 400); }
+function closeViewer() { 
+    let v = document.getElementById("viewer");
+    v.classList.remove("active");
+    setTimeout(() => v.style.display = "none", 400);
+}
 function nextMedia() { currentIndex = (currentIndex + 1) % mediaList.length; showMedia(); }
 function prevMedia() { currentIndex = (currentIndex - 1 + mediaList.length) % mediaList.length; showMedia(); }
-
-function searchProjects(type) {
-    let input = document.getElementById(type + 'Search').value.toLowerCase();
-    let folders = document.getElementById(type + 'Projects').getElementsByClassName('project-folder');
-    for (let f of folders) {
-        let label = f.querySelector('.industry-label').innerText.toLowerCase();
-        f.style.display = label.includes(input) ? "" : "none";
-    }
-}
 </script>
 </body>
 </html>
