@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creative Portfolio | Persistence & Search</title>
+<title>Creative Portfolio | Persistence & Search & Zoom</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 /* --- CORE STYLE --- */
@@ -16,7 +16,7 @@ body{
     overflow-x:hidden;
 }
 
-/* --- CHẾ ĐỘ VIEW-ONLY (Ẩn các nút admin) --- */
+/* --- VIEW-ONLY MODE --- */
 body.view-only .admin-btn, 
 body.view-only .delete-file, 
 body.view-only .delete-project,
@@ -49,13 +49,22 @@ header{
 .hero-media button{position:absolute;top:15px;right:15px;background:#ff4d6d;border:none;width:32px;height:32px;border-radius:50%;color:white;cursor:pointer;z-index:10;}
 
 .about{max-width:750px; margin:0 auto 80px auto; text-align: center;}
-.about h2{font-size: 28px; margin-bottom: 15px;}
-.about p{color:#9aa4c7; line-height:1.8; font-size: 1.1rem; font-weight: 300;}
+.about p{color:#9aa4c7; margin-top:20px; line-height:1.8; font-size: 1.1rem; font-weight: 300;}
 
 .category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px; margin-bottom: 60px;}
 .category{background:rgba(17, 24, 51, 0.6); padding:60px 30px; border-radius:18px; text-align:center; cursor:pointer; transition:all 0.4s ease; border: 1px solid rgba(255,255,255,0.05);}
 .category:hover{transform:translateY(-12px); border-color: #4cc9f0; background:rgba(22, 31, 66, 0.8);}
 .category span{font-size:55px; display:block; margin-bottom:15px;}
+
+/* --- SEARCH BOX --- */
+.search-box {
+    margin-bottom: 35px;
+    padding: 20px;
+    background: rgba(76, 201, 240, 0.04);
+    border-radius: 15px;
+    border: 1px solid rgba(76, 201, 240, 0.15);
+}
+.search-box input { width: 100%; border: 1px solid #4cc9f0 !important; font-size: 16px; background: #1e264d; color: white; padding: 14px; border-radius: 10px; outline: none; }
 
 .project-folder{ background:rgba(17, 24, 51, 0.8); padding:35px; border-radius:20px; margin-top:40px; border: 1px solid rgba(255,255,255,0.03);}
 .project-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; gap: 20px;}
@@ -64,7 +73,7 @@ header{
 .media-item img, .media-item video{width:100%; cursor:pointer; aspect-ratio:1/1; object-fit:cover; display: block; transition: 0.3s;}
 .media-item:hover img, .media-item:hover video { transform: scale(1.08); }
 
-.delete-file{position:absolute; top:8px; right:8px; background:#ff4d6d; border:none; width:26px; height:26px; border-radius:50%; color:white; cursor:pointer; z-index:5; display: flex; align-items: center; justify-content: center; font-size: 12px;}
+.delete-file{position:absolute; top:8px; right:8px; background:#ff4d6d; border:none; width:26px; height:26px; border-radius:50%; color:white; cursor:pointer; z-index:5; font-size: 12px; display:flex; align-items:center; justify-content:center;}
 
 .btn{background:#4cc9f0; border:none; padding:12px 24px; border-radius:10px; cursor:pointer; font-weight:700; color:#050a18; transition: .3s;}
 input[type="text"] { background: #1e264d; border: 1px solid #333; color: white; padding: 12px; border-radius: 10px; outline: none;}
@@ -76,7 +85,7 @@ input[type="text"] { background: #1e264d; border: 1px solid #333; color: white; 
 #viewerContainer:active { cursor: grabbing; }
 #viewerContent { transition: transform 0.1s ease-out; transform-origin: center; display: flex; align-items: center; justify-content: center; }
 #viewerContent img, #viewerContent video { max-width: 90vw; max-height: 90vh; box-shadow: 0 0 50px rgba(0,0,0,1); pointer-events: none; }
-.viewer-arrow{position:absolute; top:50%; transform:translateY(-50%); font-size:45px; background:rgba(255,255,255,0.05); width: 65px; height: 65px; border-radius: 50%; border:none; color:white; cursor:pointer; z-index: 10001; display: flex; align-items: center; justify-content: center;}
+.viewer-arrow{position:absolute; top:50%; transform:translateY(-50%); font-size:45px; background:rgba(255,255,255,0.05); width: 65px; height: 65px; border-radius: 50%; border:none; color:white; cursor:pointer; z-index: 10001; display:flex; align-items:center; justify-content:center;}
 .viewer-back{position:absolute; top:30px; left:30px; color:white; background:rgba(255,255,255,0.1); border:none; cursor:pointer; padding: 10px 20px; border-radius: 30px; z-index: 10001;}
 
 /* --- SECRET DOTS --- */
@@ -113,7 +122,7 @@ footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.
             </div>
             <div id="heroContainer"></div>
         </section>
-
+        
         <section class="about">
             <h2>About Me</h2>
             <p>Graphic Designer chuyên sâu về hệ thống nhận diện, Poster quảng cáo và Sản xuất Video. Với lối tư duy tối giản và tập trung vào trải nghiệm thị giác.</p>
@@ -129,7 +138,10 @@ footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.
     <div class="page" id="posterPage">
         <div onclick="goHome()" style="cursor:pointer; color:#4cc9f0; margin-bottom:20px; font-weight:600;">← Back to Dashboard</div>
         <h2>Poster Collection</h2>
-        <div class="admin-btn" style="display: flex; flex-wrap: wrap; gap: 12px; margin: 25px 0;">
+        <div class="search-box">
+            <input type="text" id="posterSearch" placeholder="🔍 Tìm nhanh dự án theo ngành hàng (F&B, Tech, Medical...)" onkeyup="searchProjects('poster')">
+        </div>
+        <div class="admin-btn" style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px;">
             <input placeholder="Tên khách hàng" id="posterClient" type="text" style="flex: 1;">
             <input placeholder="Ngành hàng" id="posterIndustry" type="text" style="flex: 1;">
             <button class="btn" onclick="createProject('poster')">Tạo thư mục dự án</button>
@@ -140,7 +152,10 @@ footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.
     <div class="page" id="printPage">
         <div onclick="goHome()" style="cursor:pointer; color:#4cc9f0; margin-bottom:20px; font-weight:600;">← Back to Dashboard</div>
         <h2>Print & Packaging</h2>
-        <div class="admin-btn" style="display: flex; flex-wrap: wrap; gap: 12px; margin: 25px 0;">
+        <div class="search-box">
+            <input type="text" id="printSearch" placeholder="🔍 Tìm nhanh dự án theo ngành hàng..." onkeyup="searchProjects('print')">
+        </div>
+        <div class="admin-btn" style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px;">
             <input placeholder="Tên khách hàng" id="printClient" type="text" style="flex: 1;">
             <input placeholder="Ngành hàng" id="printIndustry" type="text" style="flex: 1;">
             <button class="btn" onclick="createProject('print')">Tạo thư mục dự án</button>
@@ -151,7 +166,10 @@ footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.
     <div class="page" id="videoPage">
         <div onclick="goHome()" style="cursor:pointer; color:#4cc9f0; margin-bottom:20px; font-weight:600;">← Back to Dashboard</div>
         <h2>Video Production</h2>
-        <div class="admin-btn" style="display: flex; flex-wrap: wrap; gap: 12px; margin: 25px 0;">
+        <div class="search-box">
+            <input type="text" id="videoSearch" placeholder="🔍 Tìm nhanh dự án theo ngành hàng..." onkeyup="searchProjects('video')">
+        </div>
+        <div class="admin-btn" style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px;">
             <input placeholder="Tên khách hàng" id="videoClient" type="text" style="flex: 1;">
             <input placeholder="Ngành hàng" id="videoIndustry" type="text" style="flex: 1;">
             <button class="btn" onclick="createProject('video')">Tạo thư mục dự án</button>
@@ -179,9 +197,9 @@ footer{margin-top:100px; padding:80px 0; border-top:1px solid rgba(255,255,255,.
 </div>
 
 <script>
-/** 1. DATABASE **/
+/** DATABASE **/
 let db;
-const request = indexedDB.open("PortfolioFullDB", 1);
+const request = indexedDB.open("PortfolioCompleteDB", 1);
 request.onupgradeneeded = (e) => {
     db = e.target.result;
     db.createObjectStore("media", { keyPath: "id" });
@@ -194,7 +212,7 @@ function saveToDB(store, data) {
     db.transaction(store, "readwrite").objectStore(store).put(data);
 }
 
-/** 2. ZOOM & DRAG **/
+/** ZOOM & PAN **/
 let scale = 1, isDragging = false, startX, startY, translateX = 0, translateY = 0;
 const vContent = document.getElementById("viewerContent");
 const vContainer = document.getElementById("viewerContainer");
@@ -202,21 +220,32 @@ const vContainer = document.getElementById("viewerContainer");
 document.getElementById("viewer").onwheel = (e) => {
     e.preventDefault();
     scale = Math.min(Math.max(.5, scale + (e.deltaY > 0 ? -0.2 : 0.2)), 5);
-    updateTransform();
+    vContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 };
 
 vContainer.onmousedown = (e) => { 
     isDragging = true; startX = e.clientX - translateX; startY = e.clientY - translateY; 
 };
 window.onmousemove = (e) => { 
-    if (!isDragging) return; translateX = e.clientX - startX; translateY = e.clientY - startY; updateTransform(); 
+    if (!isDragging) return; translateX = e.clientX - startX; translateY = e.clientY - startY; 
+    vContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 };
 window.onmouseup = () => isDragging = false;
 
-function updateTransform() { vContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`; }
-function resetTransform() { scale = 1; translateX = 0; translateY = 0; updateTransform(); }
+function resetTransform() { scale = 1; translateX = 0; translateY = 0; vContent.style.transform = `translate(0,0) scale(1)`; }
 
-/** 3. PROJECT & MEDIA FUNCTIONS **/
+/** TÌM KIẾM **/
+function searchProjects(type) {
+    let input = document.getElementById(type + 'Search').value.toLowerCase();
+    let container = document.getElementById(type + 'Projects');
+    let folders = container.getElementsByClassName('project-folder');
+    for (let i = 0; i < folders.length; i++) {
+        let label = folders[i].querySelector('.industry-label').innerText.toLowerCase();
+        folders[i].style.display = label.includes(input) ? "" : "none";
+    }
+}
+
+/** PROJECT & MEDIA **/
 function createProject(type, exId=null, exC=null, exI=null) {
     const id = exId || type + "_" + Date.now();
     const client = exC || document.getElementById(type + "Client").value;
@@ -228,7 +257,7 @@ function createProject(type, exId=null, exC=null, exI=null) {
     const folder = document.createElement("div"); folder.className = "project-folder"; folder.id = id;
     folder.innerHTML = `
         <div class="project-header">
-            <div><b style="font-size:22px; color:#4cc9f0">${client}</b><div style="color:#9aa4c7; font-size:15px;">Ngành hàng: ${industry}</div></div>
+            <div><b style="font-size:22px; color:#4cc9f0">${client}</b><div class="industry-label" style="color:#9aa4c7; font-size:15px;">Ngành hàng: ${industry}</div></div>
             <button class="btn delete-project admin-btn" style="background:#ff4d6d; color:white; padding:8px 16px; font-size:12px" onclick="deleteProject('${id}')">Xóa dự án</button>
         </div>
         <div class="admin-btn" style="background:rgba(255,255,255,0.02); padding:18px; border-radius:12px; margin-bottom:20px; border: 1px solid rgba(255,255,255,0.05)">
@@ -263,18 +292,17 @@ function renderMedia(item) {
 }
 
 function deleteProject(id) {
-    if(confirm("Xóa toàn bộ dự án này?")) {
+    if(confirm("Xóa dự án này?")) {
         document.getElementById(id).remove();
         db.transaction("projects", "readwrite").objectStore("projects").delete(id);
         const tx = db.transaction("media", "readwrite");
-        const store = tx.objectStore("media");
-        store.openCursor().onsuccess = (e) => {
+        tx.objectStore("media").openCursor().onsuccess = (e) => {
             const c = e.target.result; if(c){ if(c.value.projectId === id) c.delete(); c.continue(); }
         };
     }
 }
 
-/** 4. AVATAR & HERO **/
+/** AVATAR & HERO **/
 function addAvatar(input) {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -305,21 +333,21 @@ function renderHero(item) {
     wrap.append(m, del); document.getElementById("heroContainer").append(wrap);
 }
 
-/** 5. EXPORT / IMPORT **/
+/** EXPORT / IMPORT **/
 async function exportPortfolio() {
     const data = { media: [], projects: [] };
     const getS = (s) => new Promise(res => db.transaction(s,"readonly").objectStore(s).getAll().onsuccess = e => res(e.target.result));
     data.media = await getS("media"); data.projects = await getS("projects");
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], {type:"application/json"}));
-    a.download = "Portfolio_Backup.json"; a.click();
+    a.download = "Portfolio_Export.json"; a.click();
 }
 
 function importPortfolio(input) {
     const reader = new FileReader();
     reader.onload = (e) => {
         const data = JSON.parse(e.target.result);
-        if(confirm("Tải dữ liệu mới ở chế độ xem?")) {
+        if(confirm("Tải Portfolio này ở chế độ xem?")) {
             const clearStore = (s) => db.transaction(s,"readwrite").objectStore(s).clear();
             clearStore("media"); clearStore("projects");
             data.media.forEach(m => db.transaction("media","readwrite").objectStore("media").put(m));
@@ -330,7 +358,7 @@ function importPortfolio(input) {
     reader.readAsText(input.files[0]);
 }
 
-/** 6. SYSTEM FUNCTIONS **/
+/** SYSTEM **/
 function loadData() {
     db.transaction("media").objectStore("media").get("avatar").onsuccess = e => { if(e.target.result) document.getElementById("avatarImg").src = e.target.result.data; };
     db.transaction("projects").objectStore("projects").openCursor().onsuccess = e => {
