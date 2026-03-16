@@ -9,7 +9,66 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* --- RESPONSIVE HANDLES (MOBILE) --- */
+@media screen and (max-width: 768px) {
+    /* Header & Logo */
+    header { padding: 15px 5%; }
+    .logo { font-size: 18px; }
+    .avatar { width: 35px; height: 35px; }
 
+    /* Container padding */
+    .container { padding: 0 4%; }
+
+    /* Hero section */
+    .hero { padding: 20px 0 40px 0; }
+    .hero h1 { font-size: 24px; }
+    .hero-media button { width: 28px; height: 28px; top: 10px; right: 10px; font-size: 10px; }
+
+    /* About section */
+    .about { margin-bottom: 50px; }
+    .about h2 { font-size: 20px; }
+    .about p { font-size: 1rem; line-height: 1.6; }
+
+    /* Category Grid (Trang chủ) */
+    .category-grid { gap: 15px; grid-template-columns: 1fr; } /* Chuyển thành 1 cột trên mobile */
+    .category { padding: 30px 20px; }
+    .category span { font-size: 40px; }
+
+    /* Page Titles */
+    .page h2 { font-size: 20px; margin-bottom: 15px; }
+
+    /* Search Box & Admin Controls */
+    .search-box { padding: 15px; margin-bottom: 20px; }
+    .search-box input { padding: 10px; font-size: 14px; }
+    
+    /* Phần input tạo dự án */
+    .admin-btn[style*="flex-wrap: wrap"] { gap: 8px !important; flex-direction: column; }
+    .admin-btn[style*="flex-wrap: wrap"] input { width: 100%; }
+
+    /* Project Folder */
+    .project-folder { padding: 20px; margin-top: 25px; }
+    .project-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .project-header b { font-size: 18px !important; }
+    
+    /* Upload media input trong dự án */
+    .project-folder .admin-btn { padding: 12px; }
+
+    /* Grid ảnh dự án */
+    .project-media { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+    .delete-file { width: 22px; height: 22px; font-size: 10px; top: 5px; right: 5px; }
+
+    /* Viewer (Trình xem ảnh) */
+    .viewer-back { top: 15px; left: 15px; padding: 8px 15px; font-size: 12px; }
+    .viewer-arrow { width: 40px; height: 40px; font-size: 25px; background: rgba(0,0,0,0.5); }
+    .viewer-arrow[style*="left:30px"] { left: 10px !important; }
+    .viewer-arrow[style*="right:30px"] { right: 10px !important; }
+    #viewerContent img, #viewerContent video { max-width: 95vw; max-height: 80vh; }
+
+    /* Footer */
+    footer { margin-top: 60px; padding: 40px 0; }
+    footer h3 { font-size: 18px; }
+    footer p { font-size: 14px; }
+}
 :root{
 --bg:#070b14;
 --card:#0f1629;
